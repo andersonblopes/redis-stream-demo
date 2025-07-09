@@ -103,5 +103,5 @@ Contributions are welcome! If you find bugs or want to add features, feel free t
 
 ### 📫 Contact
 
-Feel free to reach out via [GitHub issues](https://www.openai.com)
+Feel free to reach out via [GitHub issues](https://github.com/andersonblopes/redis-stream-demo/issues)
 .
