@@ -31,21 +31,48 @@ between an API (producer) and a background consumer.
 - Spring Data Redis
 - Redis (Streams)
 - Maven (Multi-module)
+- Docker
 
 ---
 
 ## 🏁 Getting Started
 
-### ✅ Prerequisites
+### ✅ Requirements
 
 - Java 21+
-- Redis installed locally or via Docker
-- Maven 3.8+
+- Maven 3.9+
+- Docker & Docker Compose
 
-> 💡 You can start Redis quickly using Docker:
+## 🐳 Running Redis with Docker
+
+To run Redis locally for development and testing, use the following Docker Compose configuration:
+
+### `docker-compose.yml`
+
+```yaml
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7.2
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+
+volumes:
+  redis-data:
+```
+
+---
+
+### 🧪 You can start Redis with:
 
 ```bash
-docker run --name redis -p 6379:6379 redis
+docker-compose up -d
 ```
 
 ### 📦 Build the Project
@@ -70,14 +97,20 @@ cd consumer
 mvn spring-boot:run
 ```
 
+### 📬 Example Usage
+
+1. Start Redis with Docker Compose.
+2. Start the consumer service.
+3. Start the producer service and send a POST request:
+
 ### 📬 Example Request
 
 #### Send a POST request to publish a message:
 
 ```bash
-curl -X POST http://localhost:8080/v1/notifications \
+curl -X POST http://localhost:8080/notification/v1/send \
 -H "Content-Type: application/json" \
--d '{"event":"SUBMITTED", "message":"Hello Redis!"}'
+-d '{"message":"Hello Redis!"}'
 ```
 
 The consumer service will log the consumed message.
@@ -103,5 +136,4 @@ Contributions are welcome! If you find bugs or want to add features, feel free t
 
 ### 📫 Contact
 
-Feel free to reach out via [GitHub issues](https://github.com/andersonblopes/redis-stream-demo/issues)
-.
+Feel free to reach out via [GitHub issues](https://github.com/andersonblopes/redis-stream-demo/issues).
