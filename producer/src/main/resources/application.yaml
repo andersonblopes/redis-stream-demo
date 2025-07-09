@@ -1,2 +1,9 @@
 server:
   port: 9999
+  servlet:
+    context-path: /notification
+spring:
+  data:
+    redis:
+      port: 6379
+      host: localhost
